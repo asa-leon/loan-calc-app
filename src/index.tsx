@@ -36,7 +36,7 @@ export default function Index() {
 
 			<div>
 				<input
-					aria-aria-label='Set increment amount'
+					aria-label='Set increment amount'
 					value={incrementAmount}
 					onChange={e => setIncrementAmount(e.target.value)} 
 				/>

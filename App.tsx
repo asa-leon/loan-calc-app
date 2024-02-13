@@ -1,4 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
+import '@expo/metro-runtime'
+import { registerRootComponent } from 'expo'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { store } from './src/redux/store'
@@ -26,3 +28,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+registerRootComponent(App)
