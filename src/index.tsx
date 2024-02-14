@@ -12,13 +12,11 @@ export default function Index() {
 	return (
 		// CONTAINER
 		<View style={styles.container}>
-			<Text style={styles.indicateComponent}>Container</Text>
 
-			{/* CIRCULAR PICTOGRAM WRAPPER */}
-			<View style={styles.circularPictogramWrapper}>
-				<Text style={styles.indicateComponent}>Circular Wrapper</Text>
+			{/* CIRCULAR Infograph WRAPPER */}
+			<View style={styles.circularInfographWrapper}>
 				
-				<CircularPictogram />
+				<CircularInfograph />
 					
 			</View>
 
@@ -33,15 +31,29 @@ export default function Index() {
 	)
 }
 
+// COMPONENT: CIRCULAR INFOGRAPH
+import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
-// COMPONENT: CIRCULAR PICTOGRAM
-export function CircularPictogram() {
+export function CircularInfograph() {
+	const percentage: number = 50
 
 	return (
-		<View style={styles.innerTextsWrapper}>
-			<Text style={styles.innerTexts}>Next Payment</Text>
-			<Text style={styles.innerTexts}>¥10,000</Text>
-			<Text style={styles.innerTexts}>@10/Dec/2024</Text>
+		<View style={styles.infograph}>
+			<CircularProgressbarWithChildren value={percentage} /* text={`${percentage}%`} */ >
+				<View style={styles.innerTextsWrapper}>
+					<View style={styles.upperText}>
+						<Text style={styles.innerTexts}>Next Payment</Text>
+						<Text style={styles.innerTexts}>¥10,000</Text>
+						<Text style={styles.innerTexts}>@10/Dec/2024</Text>
+					</View>
+					<View style={styles.lowerText}>
+						<Text style={styles.innerTexts}>Loan Principal</Text>
+						<Text style={styles.innerTexts}>¥375,000</Text>
+					</View>
+				</View>
+				
+			</CircularProgressbarWithChildren>
 		</View>
 	)
 }
@@ -71,8 +83,9 @@ export const styles = StyleSheet.create({
 		padding: 10,
 		backgroundColor: 'rgba(200, 200, 200, 1)'
 	},
-	circularPictogramWrapper: {
+	circularInfographWrapper: {
 		flex: 2,
+		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	cardsWrapper: {
@@ -80,13 +93,26 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 
-	// CIRCULAR PICTOGRAM
+	// CIRCULAR INFOGRAPH
+	infograph: {
+		width: '70%',
+	},
 	innerTextsWrapper: {
+		flex: 1,
+		justifyContent: 'space-around',
+		padding: '5%',
+	},
+	upperText: {
+
+	},
+	lowerText: {
 
 	},
 	innerTexts: {
 		textAlign: 'center',
 	},
+
+	// CARDS
 	cards: {
 
 	},
