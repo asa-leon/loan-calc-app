@@ -28,5 +28,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
-
-registerRootComponent(App)

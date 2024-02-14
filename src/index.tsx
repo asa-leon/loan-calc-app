@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import type { RootState } from './redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment, incrementByAmount } from './redux/counterSlice'
@@ -10,43 +10,95 @@ export default function Index() {
 	const [incrementAmount, setIncrementAmount] = useState('2')
 
 	return (
-		<div style={{
-			width: 360,
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'space-around'
-		}}>
-			<div>
-				<button
-					aria-label='Increment value'
-					onClick={() => dispatch(increment())}
-				>
-					Increment
-				</button>
+		// CONTAINER
+		<View style={styles.container}>
+			<Text style={styles.indicateComponent}>Container</Text>
 
-				<span>Counter: {count}</span>
+			{/* CIRCULAR PICTOGRAM WRAPPER */}
+			<View style={styles.circularPictogramWrapper}>
+				<Text style={styles.indicateComponent}>Circular Wrapper</Text>
+				
+				<CircularPictogram />
+					
+			</View>
 
-				<button
-					aria-label='Decrement value'
-					onClick={() => dispatch(decrement())}
-				>
-					Decrement
-				</button>
-			</div>
+			{/* CARDS WRAPPER */}
+			<View style={styles.cardsWrapper}>
+				<Text style={styles.indicateComponent}>Cards Wrapper</Text>
 
-			<div>
-				<input
-					aria-label='Set increment amount'
-					value={incrementAmount}
-					onChange={e => setIncrementAmount(e.target.value)} 
-				/>
-				<button onClick={() =>
-					dispatch(incrementByAmount(Number(incrementAmount) || 0))
-					}
-				>
-					Add Amount
-				</button>
-			</div>
-		</div>
+					{/* COMPONENT: CARDS */}
+					<Card />
+			</View>
+		</View>
 	)
 }
+
+
+// COMPONENT: CIRCULAR PICTOGRAM
+export function CircularPictogram() {
+
+	return (
+		<View style={styles.innerTextsWrapper}>
+			<Text style={styles.innerTexts}>Next Payment</Text>
+			<Text style={styles.innerTexts}>¥10,000</Text>
+			<Text style={styles.innerTexts}>@10/Dec/2024</Text>
+		</View>
+	)
+}
+
+// COMPONENT: CARD
+export function Card() {
+	const isAttached: boolean = false
+	const attachedName: string = ''
+	const defaultName: string = 'No Name'
+	const cardName: string =  isAttached ? attachedName : defaultName
+
+	return (
+		<View style={styles.cards}>
+			<Text style={styles.cardNames}>{cardName}</Text>
+			<Text style={styles.cardDescriptions}></Text>
+		</View>
+	)
+}
+
+export const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		width: '100%',
+		padding: 10,
+		backgroundColor: 'rgba(200, 200, 200, 1)'
+	},
+	circularPictogramWrapper: {
+		flex: 2,
+		justifyContent: 'center',
+	},
+	cardsWrapper: {
+		flex: 2,
+		justifyContent: 'center',
+	},
+
+	// CIRCULAR PICTOGRAM
+	innerTextsWrapper: {
+
+	},
+	innerTexts: {
+		textAlign: 'center',
+	},
+	cards: {
+
+	},
+	cardNames: {
+
+	},
+	cardDescriptions: {
+
+	},
+	// Dev only ---**
+	indicateComponent: {
+		color: 'teal',
+		textTransform: 'uppercase',
+	}
+})
