@@ -32,28 +32,46 @@ export default function Index() {
 }
 
 // COMPONENT: CIRCULAR INFOGRAPH
-import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar'
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import ProgressProvider from './functions/ProgressProvider'
 
 export function CircularInfograph() {
 	const percentage: number = 50
+	const circleColor: string = 'rgb(200, 200, 200)'
 
 	return (
 		<View style={styles.infograph}>
-			<CircularProgressbarWithChildren value={percentage} /* text={`${percentage}%`} */ >
-				<View style={styles.innerTextsWrapper}>
-					<View style={styles.upperText}>
-						<Text style={styles.innerTexts}>Next Payment</Text>
-						<Text style={styles.innerTexts}>¥10,000</Text>
-						<Text style={styles.innerTexts}>@10/Dec/2024</Text>
+			<ProgressProvider valueStart={0} valueEnd={percentage}>
+				{(value: number) => <CircularProgressbarWithChildren 
+					value={value}
+					styles={{
+						path: {
+							stroke:  circleColor,
+							strokeLinecap: 'butt',
+							transition: 'ease-in 1000ms'
+						},
+						trail: {
+							stroke:  circleColor,
+							opacity: 0.3
+						}
+					}}
+				>
+					<View style={styles.innerTextsWrapper}>
+						<View style={styles.upperTextArea}>
+							<Text style={[styles.innerTextTitles, styles.upperText]}>Next Payment</Text>
+							<Text style={[styles.innerTexts, styles.upperText]}>¥10,000</Text>
+							<Text style={[styles.innerTexts, styles.upperText]}>@10/Dec/2024</Text>
+						</View>
+						<View style={styles.lowerTextArea}>
+							<Text style={styles.innerTextTitles}>Loan Principal</Text>
+							<Text style={styles.innerTexts}>¥375,000</Text>
+						</View>
 					</View>
-					<View style={styles.lowerText}>
-						<Text style={styles.innerTexts}>Loan Principal</Text>
-						<Text style={styles.innerTexts}>¥375,000</Text>
-					</View>
-				</View>
+					
+				</CircularProgressbarWithChildren>}
 				
-			</CircularProgressbarWithChildren>
+			</ProgressProvider>
 		</View>
 	)
 }
@@ -81,7 +99,6 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		width: '100%',
 		padding: 10,
-		backgroundColor: 'rgba(200, 200, 200, 1)'
 	},
 	circularInfographWrapper: {
 		flex: 2,
@@ -99,11 +116,27 @@ export const styles = StyleSheet.create({
 	},
 	innerTextsWrapper: {
 		flex: 1,
-		justifyContent: 'space-around',
-		padding: '5%',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		padding: 30,
+		flexWrap: 'wrap',
+	},
+	innerTextTitles: {
+		fontWeight: 'bold',
+		textDecorationLine: 'underline',
+	},
+	upperTextArea: {
+		flex: 2,
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	upperText: {
-
+		fontSize: 18
+	},
+	lowerTextArea: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	lowerText: {
 
