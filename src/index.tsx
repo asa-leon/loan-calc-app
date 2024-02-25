@@ -14,19 +14,10 @@ export default function Index() {
 		<View style={styles.container}>
 
 			{/* CIRCULAR Infograph WRAPPER */}
-			<View style={styles.circularInfographWrapper}>
-				
-				<CircularInfograph />
-					
-			</View>
+			<CircularInfograph />
 
-			{/* CARDS WRAPPER */}
-			<View style={styles.cardsWrapper}>
-				<Text style={styles.indicateComponent}>Cards Wrapper</Text>
-
-					{/* COMPONENT: CARDS */}
-					<Card />
-			</View>
+			{/* COMPONENT: CARDS */}
+			<Card />
 		</View>
 	)
 }
@@ -41,36 +32,39 @@ export function CircularInfograph() {
 	const circleColor: string = 'rgb(200, 200, 200)'
 
 	return (
-		<View style={styles.infograph}>
+		<View style={styles.infographWrapper}>
 			<ProgressProvider valueStart={0} valueEnd={percentage}>
-				{(value: number) => <CircularProgressbarWithChildren 
-					value={value}
-					styles={{
-						path: {
-							stroke:  circleColor,
-							strokeLinecap: 'butt',
-							transition: 'ease-in 1000ms'
-						},
-						trail: {
-							stroke:  circleColor,
-							opacity: 0.3
-						}
-					}}
-				>
-					<View style={styles.innerTextsWrapper}>
-						<View style={styles.upperTextArea}>
-							<Text style={[styles.innerTextTitles, styles.upperText]}>Next Payment</Text>
-							<Text style={[styles.innerTexts, styles.upperText]}>¥10,000</Text>
-							<Text style={[styles.innerTexts, styles.upperText]}>@10/Dec/2024</Text>
+			{
+				(value: number) => <View style={styles.infograph}>
+					<CircularProgressbarWithChildren 
+						value={value}
+						styles={{
+							path: {
+								stroke:  circleColor,
+								strokeLinecap: 'butt',
+								transition: 'ease-in 1000ms'
+							},
+							trail: {
+								stroke:  circleColor,
+								opacity: 0.3
+							}
+						}}	
+					>
+						<View style={styles.innerTextsWrapper}>
+							<View style={styles.upperTextArea}>
+								<Text style={[styles.innerTextTitles, styles.upperText]}>Next Payment</Text>
+								<Text style={[styles.innerTexts, styles.upperText]}>¥10,000</Text>
+								<Text style={[styles.innerTexts, styles.upperText]}>@10/Dec/2024</Text>
+							</View>
+							<View style={styles.lowerTextArea}>
+								<Text style={[styles.innerTextTitles, styles.lowerText]}>Loan Principal</Text>
+								<Text style={[styles.innerTexts, styles.lowerText]}>¥375,000</Text>
+							</View>
 						</View>
-						<View style={styles.lowerTextArea}>
-							<Text style={styles.innerTextTitles}>Loan Principal</Text>
-							<Text style={styles.innerTexts}>¥375,000</Text>
-						</View>
-					</View>
-					
-				</CircularProgressbarWithChildren>}
-				
+						
+					</CircularProgressbarWithChildren>
+				</View>
+			}
 			</ProgressProvider>
 		</View>
 	)
@@ -78,15 +72,23 @@ export function CircularInfograph() {
 
 // COMPONENT: CARD
 export function Card() {
-	const isAttached: boolean = false
-	const attachedName: string = ''
+	const isAttached: boolean = true
+	const attachedName: string = 'Attached Name'
 	const defaultName: string = 'No Name'
 	const cardName: string =  isAttached ? attachedName : defaultName
 
 	return (
-		<View style={styles.cards}>
-			<Text style={styles.cardNames}>{cardName}</Text>
-			<Text style={styles.cardDescriptions}></Text>
+		<View style={styles.cardsWrapper}>
+			<View style={styles.cards}>
+				<View style={styles.cardTextWrapper}>
+					<Text style={styles.cardNames}>{cardName}</Text>
+					<Text style={styles.cardDescriptions}>A simple description or/and an image is attached</Text>
+				</View>
+				{isAttached
+					?	<View style={styles.cardImage}></View>
+					:	''
+				}
+			</View>
 		</View>
 	)
 }
@@ -94,32 +96,25 @@ export function Card() {
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'space-between',
 		width: '100%',
-		padding: 10,
-	},
-	circularInfographWrapper: {
-		flex: 2,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	cardsWrapper: {
-		flex: 2,
-		justifyContent: 'center',
+		//backgroundColor: 'black',
 	},
 
 	// CIRCULAR INFOGRAPH
+	infographWrapper: {
+		flex: 1.6,
+		alignItems: 'center',
+		justifyContent: 'center',
+		//backgroundColor: 'gray',
+	},
 	infograph: {
-		width: '70%',
+		width: 380,
+		//backgroundColor: 'yellow'
 	},
 	innerTextsWrapper: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		padding: 30,
-		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		padding: 40,
 	},
 	innerTextTitles: {
 		fontWeight: 'bold',
@@ -131,33 +126,62 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	upperText: {
-		fontSize: 18
+		fontSize: 26,
+		lineHeight: 26 * 1.5,
 	},
 	lowerTextArea: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	lowerText: {
-
+		fontSize: 20,
+		lineHeight: 20 * 1.5,
 	},
 	innerTexts: {
 		textAlign: 'center',
 	},
 
 	// CARDS
+	cardsWrapper: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		//backgroundColor: 'cyan'
+	},
 	cards: {
-
+		position: 'relative',
+		width: 380,
+		height: 234,
+		backgroundColor: '#efefef',
+		borderRadius: 5,
+		shadowColor: '#bebebe',
+		shadowOffset: {
+			width: 0,
+			height: -1,
+		},
+	},
+	cardTextWrapper: {
+		zIndex: 10,
+		flex: 1,
+		justifyContent: 'space-between',
+		padding: 30,
 	},
 	cardNames: {
-
+		fontSize: 28,
+		fontWeight: 'bold',
 	},
 	cardDescriptions: {
-
 	},
-	// Dev only ---**
-	indicateComponent: {
-		color: 'teal',
-		textTransform: 'uppercase',
-	}
+	cardImage: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		zIndex: -10,
+		width: '100%',
+		height: '100%',
+		borderRadius: 5,
+		backgroundColor: 'purple',
+	},
+	
 })
