@@ -52,13 +52,14 @@ export function CircularInfograph() {
 					>
 						<View style={styles.innerTextsWrapper}>
 							<View style={styles.upperTextArea}>
-								<Text style={[styles.innerTextTitles, styles.upperText]}>Next Payment</Text>
-								<Text style={[styles.innerTexts, styles.upperText]}>¥10,000</Text>
-								<Text style={[styles.innerTexts, styles.upperText]}>@10/Dec/2024</Text>
+								<Text style={
+									[styles.innerTextTitles, styles.upperText, styles.innerTextColor]}>Next Payment</Text>
+								<Text style={[styles.innerTexts, styles.upperText, styles.innerTextColor]}>¥10,000</Text>
+								<Text style={[styles.innerTexts, styles.upperText, styles.innerTextColor]}>@10/Dec/2024</Text>
 							</View>
 							<View style={styles.lowerTextArea}>
-								<Text style={[styles.innerTextTitles, styles.lowerText]}>Loan Principal</Text>
-								<Text style={[styles.innerTexts, styles.lowerText]}>¥375,000</Text>
+								<Text style={[styles.innerTextTitles, styles.lowerText, styles.innerTextColor]}>Loan Principal</Text>
+								<Text style={[styles.innerTexts, styles.lowerText, styles.innerTextColor]}>¥375,000</Text>
 							</View>
 						</View>
 						
@@ -69,6 +70,8 @@ export function CircularInfograph() {
 		</View>
 	)
 }
+
+import { Image } from 'react-native'
 
 // COMPONENT: CARD
 export function Card() {
@@ -85,7 +88,9 @@ export function Card() {
 					<Text style={styles.cardDescriptions}>A simple description or/and an image is attached</Text>
 				</View>
 				{isAttached
-					?	<View style={styles.cardImage}></View>
+					?	<Image 
+							style={styles.cardImage}
+							source={require('./images/credit-card-image.png')} />
 					:	''
 				}
 			</View>
@@ -115,6 +120,9 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'space-around',
 		padding: 40,
+	},
+	innerTextColor: {
+		color: '#111111',
 	},
 	innerTextTitles: {
 		fontWeight: 'bold',
@@ -155,10 +163,11 @@ export const styles = StyleSheet.create({
 		height: 234,
 		backgroundColor: '#efefef',
 		borderRadius: 5,
+		borderColor: 'transparent',
 		shadowColor: '#bebebe',
 		shadowOffset: {
 			width: 0,
-			height: -1,
+			height: -2,
 		},
 	},
 	cardTextWrapper: {
@@ -181,7 +190,6 @@ export const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 		borderRadius: 5,
-		backgroundColor: 'purple',
 	},
 	
 })
