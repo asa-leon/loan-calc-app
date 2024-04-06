@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const CalcPayments = (
-	{ debtBalance, interestRate, loanRepayments, repaymentAmount, year }: 
+	{ debtBalance, interestRate, loanRepayments, repaymentAmount, year = new Date().getFullYear() }: 
 	{
 		debtBalance: number, 
 		interestRate: number, 
@@ -41,7 +41,7 @@ const CalcPayments = (
 		
 		return false
 	}
-	
+
 	return ''
 }
 
